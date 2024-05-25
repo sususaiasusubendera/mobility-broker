@@ -1,4 +1,5 @@
 const express = require("express");
+const helmet = require("helmet");
 require("dotenv").config();
 
 const morgan = require("morgan");
@@ -10,6 +11,7 @@ const errorHandler = require("./api//middlewares/errorHandler");
 
 const app = express();
 
+app.use(helmet());
 app.use(requestLogger);
 app.use(morgan("dev"));
 app.use(express.json());
