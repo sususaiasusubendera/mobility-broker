@@ -11,7 +11,7 @@ const errorHandler = require("./api//middlewares/errorHandler");
 
 const app = express();
 
-app.use(helmet());
+app.use(helmet()); // middleware for security related to HTTP header
 app.use(requestLogger);
 app.use(morgan("dev"));
 app.use(express.json());
