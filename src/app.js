@@ -9,6 +9,8 @@ const errorHandler = require("./api//middlewares/errorHandler");
 
 // ---
 
+const userRoutes = require("./api/routes/userRoutes");
+
 const app = express();
 
 app.use(helmet()); // middleware for security related to HTTP header
@@ -35,6 +37,8 @@ app.get("/", (req, res, next) => {
 });
 
 // ---
+
+app.use("/api", userRoutes);
 
 app.use(errorHandler); // error handling middleware
 
