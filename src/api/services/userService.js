@@ -4,6 +4,7 @@ const userModel = require("../models/userModel");
 
 const createUser = async (userData) => {
   const { name, email, password } = userData;
+
   const hashedPassword = await hashPassword(password);
 
   return await userModel.createUser({

@@ -1,8 +1,31 @@
+const { body, validationResult } = require("express-validator");
 const userService = require("../services/userService");
 
+// const registerUser = async (req, res, next) => {
+//   try {
+//     const newUser = await userService.createUser(req.body);
+//     res.status(201).json(newUser);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+// middleware for validation and sanitization
+const validateAndSanitizeUser = [
+  body("name").trim().isLength({ min: 3 }).escape(),
+  body("email").isEmail().normalizeEmail(),
+  body("password").isLength({ min: 6 }).escape(),
+];
+
 const registerUser = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { name, email, password } = req.body;
   try {
-    const newUser = await userService.createUser(req.body);
+    const newUser = await userService.createUser({ name, email, password });
     res.status(201).json(newUser);
   } catch (error) {
     next(error);
@@ -10,8 +33,8 @@ const registerUser = async (req, res, next) => {
 };
 
 const loginUser = async (req, res, next) => {
+  const { email, password } = req.body;
   try {
-    const { email, password } = req.body;
     const { user, token } = await userService.loginUser(email, password);
     res.status(200).json({ user, token });
   } catch (error) {
@@ -20,6 +43,7 @@ const loginUser = async (req, res, next) => {
 };
 
 module.exports = {
+  validateAndSanitizeUser,
   registerUser,
   loginUser,
 };
