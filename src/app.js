@@ -26,19 +26,20 @@ app.use(express.urlencoded({ extended: true }));
 //   });
 
 app.get("/", (req, res, next) => {
-  try {
-    let hello = "hello";
-    if (hello === "hello") {
-      throw new Error("pass hello");
-    }
-  } catch (error) {
-    next(error);
-  }
+  // try {
+  //   let hello = "hello";
+  //   if (hello === "hello") {
+  //     throw new Error("pass hello");
+  //   }
+  // } catch (error) {
+  //   next(error);
+  // }
+  res.send("Hello World!");
 });
 
 // ---
 
-app.use("/api", userRoutes);
+app.use("/api/users", userRoutes);
 
 app.use(errorHandler); // error handling middleware
 
