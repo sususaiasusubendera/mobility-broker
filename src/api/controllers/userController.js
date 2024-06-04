@@ -15,14 +15,17 @@ const validateAndSanitizeUser = [
   body("name").trim().isLength({ min: 3 }).escape(),
   body("email").isEmail().normalizeEmail(),
   body("password").isLength({ min: 6 }).escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    next();
+  },
 ];
 
 const registerUser = async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   const { name, email, password } = req.body;
   try {
     const newUser = await userService.createUser({ name, email, password });
