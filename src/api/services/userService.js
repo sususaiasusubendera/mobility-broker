@@ -9,7 +9,9 @@ const createUser = async (userData) => {
   // check for existing email
   const existingUser = await userModel.getUserByEmail(email);
   if (existingUser) {
-    throw new Error("Email already registered!");
+    const error =  new Error("Email already registered!");
+    error.status = 409;
+    throw error;
   }
 
   const hashedPassword = await hashPassword(password);
