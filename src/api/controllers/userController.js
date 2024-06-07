@@ -1,15 +1,6 @@
 const { body, validationResult } = require("express-validator");
 const userService = require("../services/userService");
 
-// const registerUser = async (req, res, next) => {
-//   try {
-//     const newUser = await userService.createUser(req.body);
-//     res.status(201).json(newUser);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
 // middleware for validation and sanitization
 const validateAndSanitizeUser = [
   body("name").trim().isLength({ min: 3 }).escape(),
@@ -25,6 +16,7 @@ const validateAndSanitizeUser = [
   },
 ];
 
+// register
 const registerUser = async (req, res, next) => {
   const { name, email, password } = req.body;
   try {
@@ -35,6 +27,7 @@ const registerUser = async (req, res, next) => {
   }
 };
 
+// login
 const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
   try {

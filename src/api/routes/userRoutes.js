@@ -4,6 +4,7 @@ const { authenticateToken } = require("../middlewares/auth");
 
 const router = express.Router();
 
+// register and login
 router.post("/register", userController.validateAndSanitizeUser ,userController.registerUser);
 router.post("/login", userController.loginUser);
 

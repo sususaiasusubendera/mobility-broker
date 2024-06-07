@@ -2,18 +2,22 @@ const { hashPassword, comparePassword } = require("../utils/bcryptUtil");
 const { generateToken } = require("../utils/jwtUtil");
 const userModel = require("../models/userModel");
 
+// create user
 const createUser = async (userData) => {
   const { name, email, password } = userData;
 
   const hashedPassword = await hashPassword(password);
+  const createdDate = new Date();
 
   return await userModel.createUser({
     name,
     email,
     password: hashedPassword,
+    createdDate,
   });
 };
 
+// login
 const loginUser = async (email, password) => {
   const user = await userModel.getUserByEmail(email);
   if (!user) {

@@ -1,5 +1,6 @@
 const { verifyToken } = require("../utils/jwtUtil");
 
+// authenticate token for protected routes
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
