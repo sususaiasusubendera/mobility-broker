@@ -2,9 +2,15 @@ const { hashPassword, comparePassword } = require("../utils/bcryptUtil");
 const { generateToken } = require("../utils/jwtUtil");
 const userModel = require("../models/userModel");
 
-// create user
+// CREATE USER
 const createUser = async (userData) => {
   const { name, email, password } = userData;
+
+  // check for existing email
+  const existingUser = await userModel.getUserByEmail(email);
+  if (existingUser) {
+    throw new Error("Email already registered!");
+  }
 
   const hashedPassword = await hashPassword(password);
   const createdDate = new Date();
@@ -17,7 +23,7 @@ const createUser = async (userData) => {
   });
 };
 
-// login
+// LOGIN
 const loginUser = async (email, password) => {
   const user = await userModel.getUserByEmail(email);
   if (!user) {
