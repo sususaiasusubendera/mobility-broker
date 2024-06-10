@@ -3,12 +3,12 @@ const errorHandler = (err, req, res, next) => {
   const message = err.message || "Internal Server Error";
   const details = err.details || [];
 
-  if (details.length) {
-    console.error("Detail:", details);
-  }
-
   if (process.env.NODE_ENV === "development") {
     console.error(err.stack);
+  }
+
+  if (details.length) {
+    console.error("Details:", details);
   }
 
   res.status(statusCode).json({
