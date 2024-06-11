@@ -1,3 +1,7 @@
+# GTFS and OSM data
+*.zip
+*.pbf
+
 # Logs
 logs
 *.log
