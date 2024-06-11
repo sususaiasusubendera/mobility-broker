@@ -1,6 +1,7 @@
-# GTFS and OSM data
+# OTP
 *.zip
 *.pbf
+*.jar
 
 # Logs
 logs
