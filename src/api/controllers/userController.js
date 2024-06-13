@@ -1,5 +1,6 @@
 const { body, validationResult } = require("express-validator");
 const userService = require("../services/userService");
+const CustomError = require("../utils/customError");
 
 // middleware for validation and sanitization
 const validateAndSanitizeUser = [
@@ -8,12 +9,9 @@ const validateAndSanitizeUser = [
   body("password").isLength({ min: 6 }).escape(),
 
   (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const error = new Error("Validation failed");
-      error.status = 400;
-      error.details = errors.array();
-      return next(error);
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+      return next(new CustomError("Validation failed", 400, error.array()));
     }
     next();
   },
