@@ -1,4 +1,5 @@
 const axios = require("axios");
+const CustomError = require("../utils/customError");
 
 // PLAN TRIP
 // fromPlace: "latitude,longitude"
@@ -23,12 +24,12 @@ const planTrip = async (fromPlace, toPlace, time, date) => {
     if (response.status === 200) {
       return response.data;
     } else {
-      const error = new Error("Failed to plan trip");
-      error.status = 400;
-      throw error;
+      throw new CustomError("Failed to plan trip", 400);
     }
   } catch (error) {
-    console.error("Error planning trip: ", error.message);
+    if (!(error instanceof CustomError)) {
+      error = new CustomError("Internal erver error", 500);
+    }
     throw error;
   }
 };
