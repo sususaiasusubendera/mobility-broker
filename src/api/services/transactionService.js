@@ -4,8 +4,8 @@ const CustomError = require("../utils/customError");
 const planTrip = async (fromPlace, toPlace, time, date) => {
   try {
     const tripSummaryData = await otpService.planTrip(
-      fromPlace,
-      toPlace,
+      `${start.lat},${start.lon}`,
+      `${end.lat},${end.lon}`,
       time,
       date
     );
