@@ -36,7 +36,7 @@ app.get("/", (req, res, next) => {
 
 // routes
 app.use("/api/users", userRoutes);
-app.use("/api/transactons", transactionRoutes);
+app.use("/api/transactions", transactionRoutes);
 
 // ---
 

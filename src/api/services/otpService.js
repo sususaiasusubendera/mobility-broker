@@ -28,7 +28,7 @@ const planTrip = async (fromPlace, toPlace, time, date) => {
     }
   } catch (error) {
     if (!(error instanceof CustomError)) {
-      error = new CustomError("Internal erver error", 500);
+      error = new CustomError("Internal server error", 500);
     }
     throw error;
   }
