@@ -22,6 +22,7 @@ const createUser = async (userData) => {
       email,
       password: hashedPassword,
       createdDate,
+      balance: 1000000,
     });
   } catch (error) {
     if (!(error instanceof CustomError)) {
