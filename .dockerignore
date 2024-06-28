@@ -1,0 +1,13 @@
+node_modules
+
+logs
+
+otp
+
+.git
+.gitignore
+
+README.md
+.DS_Store
+
+.env
