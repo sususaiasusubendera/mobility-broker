@@ -2,6 +2,7 @@ node_modules
 
 logs
 
+# OTP data folder (GTFS and OSM)
 otp
 
 .git
