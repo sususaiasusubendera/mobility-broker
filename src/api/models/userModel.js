@@ -1,14 +1,17 @@
-const pool = require("../configs/databaseConfig");
+const initializePool = require("../configs/databaseConfig");
 
 const createUser = async (userData) => {
+  const pool = await initializePool();
   const { name, email, password, createdDate, balance } = userData;
-  const query = "INSERT INTO users (name, email, password, created_at, balance) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+  const query =
+    "INSERT INTO users (name, email, password, created_at, balance) VALUES ($1, $2, $3, $4, $5) RETURNING *";
   const values = [name, email, password, createdDate, balance];
   const result = await pool.query(query, values);
   return result.rows[0];
 };
 
 const getUserById = async (id) => {
+  const pool = await initializePool();
   const query = "SELECT * FROM users WHERE id = $1";
   const values = [id];
   const result = await pool.query(query, values);
@@ -16,6 +19,7 @@ const getUserById = async (id) => {
 };
 
 const getUserByName = async (name) => {
+  const pool = await initializePool();
   const query = "SELECT * FROM users WHERE name = $1";
   const values = [name];
   const result = await pool.query(query, values);
@@ -23,6 +27,7 @@ const getUserByName = async (name) => {
 };
 
 const getUserByEmail = async (email) => {
+  const pool = await initializePool();
   const query = "SELECT * FROM users WHERE email = $1";
   const values = [email];
   const result = await pool.query(query, values);
