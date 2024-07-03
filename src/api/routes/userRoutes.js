@@ -9,8 +9,8 @@ router.post("/register", userController.validateAndSanitizeUser ,userController.
 router.post("/login", userController.loginUser);
 
 // auth protected route
-// router.get('/profile', authenticateToken, (req, res) => {
-//     res.send('This is a protected route.');
-// });
+router.get('/profile', authenticateToken, (req, res) => {
+    res.send('This is a protected route.');
+});
 
 module.exports = router;

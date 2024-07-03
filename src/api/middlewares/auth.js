@@ -1,7 +1,7 @@
 const { verifyToken } = require("../utils/jwtUtil");
 
 // authenticate token for protected routes
-const authenticateToken = (req, res, next) => {
+const authenticateToken = async (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
@@ -12,7 +12,7 @@ const authenticateToken = (req, res, next) => {
   }
 
   try {
-    const user = verifyToken(token);
+    const user = await verifyToken(token);
     req.user = user;
     next();
   } catch (error) {

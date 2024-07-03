@@ -45,7 +45,7 @@ const loginUser = async (email, password) => {
       throw new CustomError("Invalid password", 401);
     }
 
-    const token = generateToken(user);
+    const token = await generateToken(user);
     return { user, token };
   } catch (error) {
     if (!(error instanceof CustomError)) {
