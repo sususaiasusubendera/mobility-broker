@@ -2,7 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const requestLogger = require("./api/middlewares/requestLogger");
-const errorHandler = require("./api//middlewares/errorHandler");
+const errorHandler = require("./api/middlewares/errorHandler");
 const userRoutes = require("./api/routes/userRoutes");
 const transactionRoutes = require("./api/routes/transactionRoutes");
 require("dotenv").config();

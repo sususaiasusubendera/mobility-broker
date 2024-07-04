@@ -26,7 +26,7 @@ const createUser = async (userData) => {
     });
   } catch (error) {
     if (!(error instanceof CustomError)) {
-      error = new CustomError("Internal erver error", 500);
+      error = new CustomError("Internal server error", 500);
     }
     throw error;
   }
@@ -37,7 +37,7 @@ const loginUser = async (email, password) => {
   try {
     const user = await userModel.getUserByEmail(email);
     if (!user) {
-      throw new CustomErrorError("User not found", 404);
+      throw new CustomError("User not found", 404);
     }
 
     const isPasswordValid = await comparePassword(password, user.password);
