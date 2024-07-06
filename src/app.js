@@ -12,7 +12,7 @@ require("dotenv").config();
 const app = express();
 
 // middlewares
-// app.use(helmet()); // middleware for security related to HTTP header
+app.use(helmet()); // middleware for security related to HTTP header
 app.use(morgan("dev")); // middleware for logging
 app.use(requestLogger); // middleware for writing the log to a file
 app.use(express.json()); // middleware for JSON parsing
