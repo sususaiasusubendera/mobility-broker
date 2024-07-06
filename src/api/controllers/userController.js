@@ -39,8 +39,30 @@ const loginUser = async (req, res, next) => {
   }
 };
 
+// get user data by email
+const getUserDataByEmail = async (req, res, next) => {
+  if (req.query.email) {
+    const email = req.query.email;
+    try {
+      const user = await userService.getUserDataByEmail(email);
+      if (!user) {
+        return next(new CustomError("User not found", 404));
+      }
+      res.status(200).json({
+        user_id: user.user_id,
+        name: user.name,
+        email: user.email,
+        balance: user.balance,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+};
+
 module.exports = {
   validateAndSanitizeUser,
   registerUser,
   loginUser,
+  getUserDataByEmail,
 };

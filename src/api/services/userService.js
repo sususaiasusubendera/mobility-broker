@@ -55,7 +55,23 @@ const loginUser = async (email, password) => {
   }
 };
 
+const getUserDataByEmail = async (email) => {
+  try {
+    const userData = await userModel.getUserByEmail(email);
+    if (!userData) {
+      throw new CustomError("User not found", 404);
+    }
+    return userData;
+  } catch (error) {
+    if (!(error instanceof CustomError)) {
+      error = new CustomError("Internal server error", 500);
+    }
+    throw error;
+  }
+};
+
 module.exports = {
   createUser,
   loginUser,
+  getUserDataByEmail,
 };
