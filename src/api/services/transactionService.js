@@ -93,7 +93,7 @@ const getTicketsByEmail = async (email) => {
       throw new CustomError("User not found", 404);
     }
 
-    const tickets = await transactionModel.getTransactionsTrueByEmail(user.user_id);
+    const tickets = await transactionModel.getTransactionsTrue(user.user_id);
     return tickets;
   } catch (error) {
     if (!(error instanceof CustomError)) {

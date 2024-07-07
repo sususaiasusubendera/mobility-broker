@@ -24,9 +24,17 @@ const updateIsActiveToFalse = async (transaction_id, user_id) => {
   return result.rows[0];
 };
 
-const getTransactionsTrueByEmail = async (user_id) => {
+const getTransactionsTrue = async (user_id) => {
   const query =
     "SELECT * FROM transactions WHERE user_id = $1 AND is_active = true ORDER BY transaction_date DESC";
+  const values = [user_id];
+  const result = await pool.query(query, values);
+  return result.rows;
+};
+
+const getTransactionsFalse = async (user_id) => {
+  const query =
+    "SELECT * FROM transactions WHERE user_id = $1 AND is_active = false ORDER BY transaction_date DESC";
   const values = [user_id];
   const result = await pool.query(query, values);
   return result.rows;
@@ -36,5 +44,6 @@ module.exports = {
   createTransaction,
   getTransactionById,
   updateIsActiveToFalse,
-  getTransactionsTrueByEmail
+  getTransactionsTrue,
+  getTransactionsFalse,
 };
