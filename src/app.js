@@ -20,19 +20,10 @@ app.use(express.urlencoded({ extended: true })); // middleware for URL-encoded p
 
 // ---
 
+// root endpoint (testing purpose)
 app.get("/", (req, res, next) => {
-  // try { // testing for errorHandler
-  //   let hello = "hello";
-  //   if (hello === "hello") {
-  //     throw new Error("pass hello");
-  //   }
-  // } catch (error) {
-  //   next(error);
-  // }
-  res.send("Hello World!");
+  res.send("Welcome! You are using Bandung Transit API");
 });
-
-// ---
 
 // routes
 app.use("/api/users", userRoutes);
