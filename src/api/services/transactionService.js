@@ -86,7 +86,7 @@ const changeTicketStatus = async (email, transaction_id) => {
   }
 };
 
-const getTicketsByEmail = async (email) => {
+const getTicketsTrueByEmail = async (email) => {
   try {
     const user = await userModel.getUserByEmail(email);
     if (!user) {
@@ -103,9 +103,27 @@ const getTicketsByEmail = async (email) => {
   }
 };
 
+const getTicketsFalseByEmail = async (email) => {
+  try {
+    const user = await userModel.getUserByEmail(email);
+    if (!user) {
+      throw new CustomError("User not found", 404);
+    }
+
+    const tickets = await transactionModel.getTransactionsFalse(user.user_id);
+    return tickets;
+  } catch (error) {
+    if (!(error instanceof CustomError)) {
+      error = new CustomError("Internal server error", 500);
+    }
+    throw error;
+  }
+};
+
 module.exports = {
   planTrip,
   createTripTransactionInfo,
   changeTicketStatus,
-  getTicketsByEmail,
+  getTicketsTrueByEmail,
+  getTicketsFalseByEmail,
 };

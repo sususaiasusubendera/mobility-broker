@@ -66,7 +66,7 @@ const getTickets = async (req, res, next) => {
       return next(new CustomError("Bad request", 400));
     }
 
-    const tickets = await transactionService.getTicketsByEmail(email);
+    const tickets = await transactionService.getTicketsTrueByEmail(email);
     res.status(200).json(tickets);
   } catch (error) {
     next(error);
@@ -74,7 +74,17 @@ const getTickets = async (req, res, next) => {
 };
 
 const getTicketsHistory = async (req, res, next) => {
-  
+  const email = req.query.email;
+  try {
+    if (!email) {
+      return next(new CustomError("Bad request", 400));
+    }
+
+    const tickets = await transactionService.getTicketsFalseByEmail(email);
+    res.status(200).json(tickets);
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
@@ -82,5 +92,5 @@ module.exports = {
   createTripTransaction,
   changeTicketStatus,
   getTickets,
-  getTicketsHistory
+  getTicketsHistory,
 };
