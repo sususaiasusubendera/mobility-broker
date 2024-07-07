@@ -28,10 +28,8 @@ const createTripTransaction = async (req, res, next) => {
       return next(new CustomError("Bad request", 400));
     }
 
-    const newTripTransaction = await transactionService.createTripTransactionInfo(
-      email,
-      trip_id
-    );
+    const newTripTransaction =
+      await transactionService.createTripTransactionInfo(email, trip_id);
     res.status(201).json(newTripTransaction);
     res;
   } catch (error) {
@@ -39,7 +37,10 @@ const createTripTransaction = async (req, res, next) => {
   }
 };
 
+const changeTicketStatus = async (req, res, next) => {};
+
 module.exports = {
   getTripSummary,
   createTripTransaction,
+  changeTicketStatus,
 };
