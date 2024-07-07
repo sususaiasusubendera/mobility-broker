@@ -1,4 +1,5 @@
 const transactionService = require("../services/transactionService");
+const CustomError = require("../utils/customError");
 
 const getTripSummary = async (req, res, next) => {
   const { startLat, startLon, endLat, endLon, time, date } = req.body;
@@ -15,7 +16,28 @@ const getTripSummary = async (req, res, next) => {
   }
 };
 
-const createTripTransaction = async (req, res, next) => {};
+const createTripTransaction = async (req, res, next) => {
+  const email = req.query.email;
+  const trip_id = req.query.trip_id;
+  try {
+    if (!email) {
+      return next(new CustomError("Bad request", 400));
+    }
+
+    if (!trip_id) {
+      return next(new CustomError("Bad request", 400));
+    }
+
+    const newTripTransaction = await transactionService.createTripTransactionInfo(
+      email,
+      trip_id
+    );
+    res.status(201).json(newTripTransaction);
+    res;
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   getTripSummary,
