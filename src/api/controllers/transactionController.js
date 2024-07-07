@@ -59,8 +59,11 @@ const changeTicketStatus = async (req, res, next) => {
   }
 };
 
+const getTickets = async (req, res, next) => {};
+
 module.exports = {
   getTripSummary,
   createTripTransaction,
   changeTicketStatus,
+  getTickets
 };

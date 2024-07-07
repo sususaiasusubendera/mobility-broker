@@ -8,5 +8,6 @@ const router = express.Router();
 router.post("/plan", transactionController.getTripSummary);
 router.post("/transaction", transactionController.createTripTransaction);
 router.post("/ticket/status", transactionController.changeTicketStatus);
+router.get("/tickets", transactionController.getTickets);
 
 module.exports = router;
