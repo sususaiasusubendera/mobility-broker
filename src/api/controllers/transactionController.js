@@ -37,7 +37,27 @@ const createTripTransaction = async (req, res, next) => {
   }
 };
 
-const changeTicketStatus = async (req, res, next) => {};
+const changeTicketStatus = async (req, res, next) => {
+  const email = req.query.email;
+  const transaction_id = req.query.transaction_id;
+  try {
+    if (!email) {
+      return next(new CustomError("Bad request", 400));
+    }
+
+    if (!transaction_id) {
+      return next(new CustomError("Bad request", 400));
+    }
+
+    const newStatus = await transactionService.changeTicketStatus(
+      email,
+      transaction_id
+    );
+    res.status(200).json(newStatus);
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   getTripSummary,

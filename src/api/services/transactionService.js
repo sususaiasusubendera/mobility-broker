@@ -30,7 +30,10 @@ const createTripTransactionInfo = async (email, trip_id) => {
 
     if (trip_id === "1") {
       const amount = 12000;
-      const userNewBalance = await userModel.updateUserBalance(user.balance - amount, user.email);
+      const userNewBalance = await userModel.updateUserBalance(
+        user.balance - amount,
+        user.email
+      );
 
       return await transactionModel.createTransaction({
         user_id: user.user_id,
@@ -40,7 +43,10 @@ const createTripTransactionInfo = async (email, trip_id) => {
       });
     } else if (trip_id === "2") {
       const amount = 8000;
-      const userNewBalance = await userModel.updateUserBalance(user.balance - amount, user.email);
+      const userNewBalance = await userModel.updateUserBalance(
+        user.balance - amount,
+        user.email
+      );
 
       return await transactionModel.createTransaction({
         user_id: user.user_id,
@@ -59,7 +65,29 @@ const createTripTransactionInfo = async (email, trip_id) => {
   }
 };
 
+const changeTicketStatus = async (email, transaction_id) => {
+  try {
+    const user = await userModel.getUserByEmail(email);
+    if (!user) {
+      throw new CustomError("User not found", 404);
+    }
+
+    user_id = user.user_id;
+
+    return await transactionModel.updateIsActiveToFalse(
+      transaction_id,
+      user_id
+    );
+  } catch (error) {
+    if (!(error instanceof CustomError)) {
+      error = new CustomError("Internal erver error", 500);
+    }
+    throw error;
+  }
+};
+
 module.exports = {
   planTrip,
   createTripTransactionInfo,
+  changeTicketStatus,
 };

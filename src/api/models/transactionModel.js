@@ -16,7 +16,16 @@ const getTransactionById = async (id) => {
   return result.rows[0];
 };
 
+const updateIsActiveToFalse = async (transaction_id, user_id) => {
+  const query =
+    "UPDATE transactions SET is_active = false WHERE transaction_id = $1 AND user_id = $2 RETURNING *";
+  const values = [transaction_id, user_id];
+  const result = await pool.query(query, values);
+  return result.rows[0];
+};
+
 module.exports = {
   createTransaction,
   getTransactionById,
+  updateIsActiveToFalse,
 };
