@@ -9,5 +9,6 @@ router.post("/plan", transactionController.getTripSummary);
 router.post("/transaction", transactionController.createTripTransaction);
 router.post("/ticket/status", transactionController.changeTicketStatus);
 router.get("/tickets", transactionController.getTickets);
+router.get("/tickets/history", transactionController.getTicketsHistory);
 
 module.exports = router;

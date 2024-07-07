@@ -73,9 +73,14 @@ const getTickets = async (req, res, next) => {
   }
 };
 
+const getTicketsHistory = async (req, res, next) => {
+  
+};
+
 module.exports = {
   getTripSummary,
   createTripTransaction,
   changeTicketStatus,
   getTickets,
+  getTicketsHistory
 };
