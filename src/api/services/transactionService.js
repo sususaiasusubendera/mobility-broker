@@ -15,7 +15,7 @@ const planTrip = async (fromPlace, toPlace, time, date) => {
     return tripSummaryData;
   } catch (error) {
     if (!(error instanceof CustomError)) {
-      error = new CustomError("Internal erver error", 500);
+      error = new CustomError("Internal server error", 500);
     }
     throw error;
   }
@@ -59,7 +59,7 @@ const createTripTransactionInfo = async (email, trip_id) => {
     }
   } catch (error) {
     if (!(error instanceof CustomError)) {
-      error = new CustomError("Internal erver error", 500);
+      error = new CustomError("Internal server error", 500);
     }
     throw error;
   }
@@ -80,7 +80,24 @@ const changeTicketStatus = async (email, transaction_id) => {
     );
   } catch (error) {
     if (!(error instanceof CustomError)) {
-      error = new CustomError("Internal erver error", 500);
+      error = new CustomError("Internal server error", 500);
+    }
+    throw error;
+  }
+};
+
+const getTicketsByEmail = async (email) => {
+  try {
+    const user = await userModel.getUserByEmail(email);
+    if (!user) {
+      throw new CustomError("User not found", 404);
+    }
+
+    const tickets = await transactionModel.getTransactionsTrueByEmail(user.user_id);
+    return tickets;
+  } catch (error) {
+    if (!(error instanceof CustomError)) {
+      error = new CustomError("Internal server error", 500);
     }
     throw error;
   }
@@ -90,4 +107,5 @@ module.exports = {
   planTrip,
   createTripTransactionInfo,
   changeTicketStatus,
+  getTicketsByEmail,
 };

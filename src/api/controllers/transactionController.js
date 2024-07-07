@@ -59,11 +59,23 @@ const changeTicketStatus = async (req, res, next) => {
   }
 };
 
-const getTickets = async (req, res, next) => {};
+const getTickets = async (req, res, next) => {
+  const email = req.query.email;
+  try {
+    if (!email) {
+      return next(new CustomError("Bad request", 400));
+    }
+
+    const tickets = await transactionService.getTicketsByEmail(email);
+    res.status(200).json(tickets);
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   getTripSummary,
   createTripTransaction,
   changeTicketStatus,
-  getTickets
+  getTickets,
 };
