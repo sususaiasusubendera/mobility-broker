@@ -3,9 +3,9 @@ const errorHandler = (err, req, res, next) => {
   const message = err.message || "Internal Server Error";
   const details = err.details || [];
 
-  // if (process.env.NODE_ENV === "development") {
-  //   console.error(err.stack);
-  // }
+  if (process.env.NODE_ENV === "development") {
+    console.error(err.stack);
+  }
 
   console.error(err.stack)
 

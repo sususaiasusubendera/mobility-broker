@@ -1,5 +1,4 @@
 const { Pool } = require("pg");
-// const accessSecret = require("../utils/accessSecret");
 
 require("dotenv").config();
 
