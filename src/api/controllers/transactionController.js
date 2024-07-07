@@ -15,6 +15,9 @@ const getTripSummary = async (req, res, next) => {
   }
 };
 
+const createTripTransaction = async (req, res, next) => {};
+
 module.exports = {
   getTripSummary,
+  createTripTransaction,
 };
