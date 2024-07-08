@@ -30,6 +30,9 @@ const createTripTransactionInfo = async (email, trip_id) => {
 
     if (trip_id === "1") {
       const amount = 12000;
+      if (user.balance < amount) {
+        throw new CustomError("Not enough balance", 400);
+      }
       const userNewBalance = await userModel.updateUserBalance(
         user.balance - amount,
         user.email
@@ -43,6 +46,9 @@ const createTripTransactionInfo = async (email, trip_id) => {
       });
     } else if (trip_id === "2") {
       const amount = 8000;
+      if (user.balance < amount) {
+        throw new CustomError("Not enough balance", 400);
+      }
       const userNewBalance = await userModel.updateUserBalance(
         user.balance - amount,
         user.email
@@ -72,7 +78,14 @@ const changeTicketStatus = async (email, transaction_id) => {
       throw new CustomError("User not found", 404);
     }
 
-    if (!user.is_active) {
+    const transaction = await transactionModel.getTransactionById(
+      Number(transaction_id)
+    );
+    if (user.user_id !== transaction.user_id) {
+      throw new CustomError("User transaction not found", 404);
+    }
+
+    if (!transaction.is_active) {
       throw new CustomError("Ticket is not active", 400);
     }
 
