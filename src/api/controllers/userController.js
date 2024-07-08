@@ -22,7 +22,9 @@ const registerUser = async (req, res, next) => {
   const { name, email, password } = req.body;
   try {
     const newUser = await userService.createUser({ name, email, password });
-    res.status(201).json({ message: "Account created"});
+    res
+      .status(201)
+      .json({ message: "Account created. Hello, " + newUser.name });
   } catch (error) {
     next(error);
   }
