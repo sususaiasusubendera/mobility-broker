@@ -72,8 +72,11 @@ const changeTicketStatus = async (email, transaction_id) => {
       throw new CustomError("User not found", 404);
     }
 
-    user_id = user.user_id;
+    if (!user.is_active) {
+      throw new CustomError("Ticket is not active", 400);
+    }
 
+    user_id = user.user_id;
     return await transactionModel.updateIsActiveToFalse(
       transaction_id,
       user_id
