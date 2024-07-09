@@ -7,7 +7,7 @@ const router = express.Router();
 // register and login
 router.post("/register", userController.validateAndSanitizeUser, userController.registerUser);
 router.post("/login", userController.loginUser);
-router.get("/user", userController.getUserDataByEmail);
+router.get("/user", authenticateToken, userController.getUserDataByEmail);
 
 // auth protected route
 router.get("/profile", authenticateToken, (req, res) => {
