@@ -50,6 +50,39 @@ const createTripTransactionInfo = async (email, trip_id) => {
         trip_id,
         from: "Terminal Cicaheum",
         to: "Terminal Elang",
+        trip_desc: "K5 - K2 - 2D",
+        amount,
+        date: datetimeUtil.parseForDate(transaction.transaction_date),
+        time: datetimeUtil.parseForTime(transaction.transaction_date),
+      };
+
+      const qrCodeLink = await QRcode.toDataURL(JSON.stringify(qrInfo));
+      await transactionModel.updateQR(qrCodeLink, transaction.transaction_id);
+
+      return await transactionModel.getTransactionById(
+        transaction.transaction_id
+      );
+
+    } else if (trip_id === "2") {
+      const amount = 8000;
+      if (user.balance < amount) {
+        throw new CustomError("Not enough balance", 400);
+      }
+      await userModel.updateUserBalance(user.balance - amount, user.email);
+
+      const transaction = await transactionModel.createTransaction({
+        user_id: user.user_id,
+        trip_id,
+        amount,
+        transaction_date: new Date(),
+      });
+
+      const qrInfo = {
+        transaction_id: transaction.transaction_id,
+        name: user.name,
+        trip_id,
+        from: "Terminal Cicaheum",
+        to: "Terminal Elang",
         trip_desc: "D11 - K2",
         amount,
         date: datetimeUtil.parseForDate(transaction.transaction_date),
@@ -62,23 +95,7 @@ const createTripTransactionInfo = async (email, trip_id) => {
       return await transactionModel.getTransactionById(
         transaction.transaction_id
       );
-    } else if (trip_id === "2") {
-      const amount = 8000;
-      if (user.balance < amount) {
-        throw new CustomError("Not enough balance", 400);
-      }
-      const userNewBalance = await userModel.updateUserBalance(
-        user.balance - amount,
-        user.email
-      );
 
-      return await transactionModel.createTransaction({
-        user_id: user.user_id,
-        trip_id,
-        amount,
-
-        transaction_date: new Date(),
-      });
     } else {
       throw new CustomError("Trip not found", 404);
     }
