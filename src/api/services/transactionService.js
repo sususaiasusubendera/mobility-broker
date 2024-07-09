@@ -53,7 +53,7 @@ const createTripTransactionInfo = async (email, trip_id) => {
         trip_desc: "K5 - K2 - 2D",
         amount,
         date: datetimeUtil.parseForDate(transaction.transaction_date),
-        time: datetimeUtil.parseForTime(transaction.transaction_date),
+        time: datetimeUtil.parseForTime(transaction.transaction_date) + " WIB",
       };
 
       const qrCodeLink = await QRcode.toDataURL(JSON.stringify(qrInfo));
@@ -86,7 +86,7 @@ const createTripTransactionInfo = async (email, trip_id) => {
         trip_desc: "D11 - K2",
         amount,
         date: datetimeUtil.parseForDate(transaction.transaction_date),
-        time: datetimeUtil.parseForTime(transaction.transaction_date),
+        time: datetimeUtil.parseForTime(transaction.transaction_date) + " WIB",
       };
 
       const qrCodeLink = await QRcode.toDataURL(JSON.stringify(qrInfo));
