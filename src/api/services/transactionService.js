@@ -3,6 +3,7 @@ const otpService = require("./otpService");
 const userModel = require("../models/userModel");
 const transactionModel = require("../models/transactionModel");
 const CustomError = require("../utils/customError");
+const datetimeUtil = require("../utils/datetimeUtil");
 
 const planTrip = async (fromPlace, toPlace, time, date) => {
   try {
@@ -51,14 +52,12 @@ const createTripTransactionInfo = async (email, trip_id) => {
         to: "Terminal Elang",
         trip_desc: "D11 - K2",
         amount,
-        transaction_date: transaction.transaction_date,
+        date: datetimeUtil.parseForDate(transaction.transaction_date),
+        time: datetimeUtil.parseForTime(transaction.transaction_date),
       };
 
       const qrCodeLink = await QRcode.toDataURL(JSON.stringify(qrInfo));
-      await transactionModel.updateQR(
-        qrCodeLink,
-        transaction.transaction_id
-      );
+      await transactionModel.updateQR(qrCodeLink, transaction.transaction_id);
 
       return await transactionModel.getTransactionById(
         transaction.transaction_id
