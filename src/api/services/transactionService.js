@@ -1,3 +1,4 @@
+const QRcode = require("qrcode");
 const otpService = require("./otpService");
 const userModel = require("../models/userModel");
 const transactionModel = require("../models/transactionModel");
@@ -33,17 +34,35 @@ const createTripTransactionInfo = async (email, trip_id) => {
       if (user.balance < amount) {
         throw new CustomError("Not enough balance", 400);
       }
-      const userNewBalance = await userModel.updateUserBalance(
-        user.balance - amount,
-        user.email
-      );
+      await userModel.updateUserBalance(user.balance - amount, user.email);
 
-      return await transactionModel.createTransaction({
+      const transaction = await transactionModel.createTransaction({
         user_id: user.user_id,
         trip_id,
         amount,
         transaction_date: new Date(),
       });
+
+      const qrInfo = {
+        transaction_id: transaction.transaction_id,
+        name: user.name,
+        trip_id,
+        from: "Terminal Cicaheum",
+        to: "Terminal Elang",
+        trip_desc: "D11 - K2",
+        amount,
+        transaction_date: transaction.transaction_date,
+      };
+
+      const qrCodeLink = await QRcode.toDataURL(JSON.stringify(qrInfo));
+      await transactionModel.updateQR(
+        qrCodeLink,
+        transaction.transaction_id
+      );
+
+      return await transactionModel.getTransactionById(
+        transaction.transaction_id
+      );
     } else if (trip_id === "2") {
       const amount = 8000;
       if (user.balance < amount) {
@@ -58,6 +77,7 @@ const createTripTransactionInfo = async (email, trip_id) => {
         user_id: user.user_id,
         trip_id,
         amount,
+
         transaction_date: new Date(),
       });
     } else {
@@ -129,7 +149,9 @@ const getTicketsFalseByEmail = async (email) => {
     }
 
     const tickets = {
-      tickets_history: await transactionModel.getTransactionsFalse(user.user_id),
+      tickets_history: await transactionModel.getTransactionsFalse(
+        user.user_id
+      ),
     };
     return tickets;
   } catch (error) {

@@ -40,10 +40,19 @@ const getTransactionsFalse = async (user_id) => {
   return result.rows;
 };
 
+const updateQR = async (qr_link, transaction_id) => {
+  const query =
+    "UPDATE transactions SET qr_link = $1 WHERE transaction_id = $2";
+  const values = [qr_link, transaction_id];
+  const result = await pool.query(query, values);
+  return result.rows[0];
+};
+
 module.exports = {
   createTransaction,
   getTransactionById,
   updateIsActiveToFalse,
   getTransactionsTrue,
   getTransactionsFalse,
+  updateQR,
 };
