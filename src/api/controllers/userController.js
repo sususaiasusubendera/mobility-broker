@@ -1,4 +1,5 @@
 const { body, validationResult } = require("express-validator");
+const { verifyToken } = require("../utils/jwtUtil");
 const userService = require("../services/userService");
 const CustomError = require("../utils/customError");
 
@@ -63,7 +64,50 @@ const getUserDataByEmail = async (req, res, next) => {
 };
 
 // check session
-const checkSession = async (req, res, next) => {};
+const checkSession = async (req, res, next) => {
+  try {
+    const authHeader = req.headers["authorization"];
+    if (!authHeader) {
+      return next(
+        new CustomError("Unauthorized. Missing authorization header", 401)
+      );
+    }
+
+    const token = authHeader && authHeader.split(" ")[1];
+    if (!token) {
+      new CustomError("Unauthorized. Missing token", 401);
+    }
+
+    const user = await verifyToken(token);
+    if (user) {
+      res.status(200).json({
+        message: "Authorized",
+      });
+    } else {
+      new CustomError("Unauthorized. Invalid token", 401);
+    }
+  } catch (error) {
+    next(error);
+  }
+  // const authHeader = req.headers["authorization"];
+  // const token = authHeader && authHeader.split(" ")[1];
+
+  // if (!token) {
+  //   return res.status(401).json({
+  //     message: "Access denied!",
+  //   });
+  // }
+
+  // try {
+  //   const user = await verifyToken(token);
+  //   req.user = user;
+  //   next();
+  // } catch (error) {
+  //   res.status(403).json({
+  //     message: "invalid token!",
+  //   });
+  // }
+};
 
 module.exports = {
   validateAndSanitizeUser,
