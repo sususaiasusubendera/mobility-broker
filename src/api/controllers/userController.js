@@ -62,9 +62,13 @@ const getUserDataByEmail = async (req, res, next) => {
   }
 };
 
+// check session
+const checkSession = async (req, res, next) => {};
+
 module.exports = {
   validateAndSanitizeUser,
   registerUser,
   loginUser,
   getUserDataByEmail,
+  checkSession,
 };
