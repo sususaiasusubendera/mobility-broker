@@ -37,12 +37,12 @@ const loginUser = async (email, password) => {
   try {
     const user = await userModel.getUserByEmail(email);
     if (!user) {
-      throw new CustomError("User not found", 404);
+      throw new CustomError("Email or password is invalid", 400);
     }
 
     const isPasswordValid = await comparePassword(password, user.password);
     if (!isPasswordValid) {
-      throw new CustomError("Invalid password", 401);
+      throw new CustomError("Email or password is invalid", 400);
     }
 
     const token = await generateToken(user);
