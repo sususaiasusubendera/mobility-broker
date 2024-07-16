@@ -34,6 +34,8 @@ const getJourney = async (req, res, next) => {
 
 const showOriRec = async (req, res, next) => {
   try {
+    const rec = await journeyService.getAllOriRec();
+    res.status(200).json(rec);
   } catch (error) {
     next(error);
   }
@@ -41,6 +43,8 @@ const showOriRec = async (req, res, next) => {
 
 const showDestRec = async (req, res, next) => {
   try {
+    const rec = await journeyService.getAllDestRec();
+    res.status(200).json(rec);
   } catch (error) {
     next(error);
   }

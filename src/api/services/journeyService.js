@@ -43,7 +43,45 @@ const getJourneyById = async (id) => {
   }
 };
 
+const getAllOriRec = async () => {
+  try {
+    const recData = await journeyModel.getAllOriRec();
+    if (!recData) {
+      throw new CustomError("No origin recommendation found", 400);
+    }
+
+    return {
+      origin_recommendation: recData,
+    };
+  } catch (error) {
+    if (!(error instanceof CustomError)) {
+      error = new CustomError("Internal server error", 500);
+    }
+    throw error;
+  }
+};
+
+const getAllDestRec = async () => {
+  try {
+    const recData = await journeyModel.getAllDestRec();
+    if (!recData) {
+      throw new CustomError("No destination recommendation found", 400);
+    }
+
+    return {
+      destination_recommendation: recData,
+    };
+  } catch (error) {
+    if (!(error instanceof CustomError)) {
+      error = new CustomError("Internal server error", 500);
+    }
+    throw error;
+  }
+};
+
 module.exports = {
   showJourney,
   getJourneyById,
+  getAllOriRec,
+  getAllDestRec,
 };

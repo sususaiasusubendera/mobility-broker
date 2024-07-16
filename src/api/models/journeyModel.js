@@ -23,7 +23,7 @@ const getAllOriRec = async () => {
 
 // destination recommendation
 const getAllDestRec = async () => {
-  const query = "SELECT * FROM destination recommendation";
+  const query = "SELECT * FROM destination_recommendation";
   const result = await pool.query(query);
   return result.rows;
 };
