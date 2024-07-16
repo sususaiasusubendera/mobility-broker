@@ -4,7 +4,8 @@ const morgan = require("morgan");
 const requestLogger = require("./api/middlewares/requestLogger");
 const errorHandler = require("./api/middlewares/errorHandler");
 const userRoutes = require("./api/routes/userRoutes");
-const infoRoutes = require("./api/routes/infoRoutes")
+const infoRoutes = require("./api/routes/infoRoutes");
+const journeyRoutes = require("./api/routes/journeyRoutes");
 const transactionRoutes = require("./api/routes/transactionRoutes");
 require("dotenv").config();
 
@@ -32,7 +33,8 @@ app.get("/api/health", (req, res, next) => {
 
 // routes
 app.use("/api/users", userRoutes);
-app.use("/api/infos", infoRoutes)
+app.use("/api/infos", infoRoutes);
+app.use("/api/journeys", journeyRoutes);
 app.use("/api/transactions", transactionRoutes);
 
 // ---

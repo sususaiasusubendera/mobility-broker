@@ -1,10 +1,9 @@
 const pool = require("../configs/databaseConfig");
 
 // journey
-const getJourneyById = async (id) => {
-  const query = "SELECT * FROM journey WHERE journey_id = $1";
-  const values = [id];
-  const result = await pool.query(query, values);
+const getAllJourney = async () => {
+  const query = "SELECT * FROM journey";
+  const result = await pool.query(query);
   return result.rows[0];
 };
 
@@ -23,7 +22,7 @@ const getAllDestRec = async () => {
 };
 
 module.exports = {
-  getJourneyById,
+  getAllJourney,
   getAllOriRec,
   getAllDestRec,
 };
