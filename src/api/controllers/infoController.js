@@ -24,7 +24,15 @@ const getRouteInfoByProgram = async (req, res, next) => {
   }
 };
 
+const getMap = async (req, res, next) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getServiceInfo,
   getRouteInfoByProgram,
+  getMap,
 };
