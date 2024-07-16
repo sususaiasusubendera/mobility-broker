@@ -6,5 +6,7 @@ const router = express.Router();
 
 router.post("/", journeyController.showJourney);
 router.get("/journey", journeyController.getJourney);
+router.get("/recommendation/origin", journeyController.showOriRec);
+router.get("/recommendation/destination", journeyController.showDestRec);
 
 module.exports = router;

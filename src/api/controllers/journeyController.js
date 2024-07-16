@@ -32,7 +32,23 @@ const getJourney = async (req, res, next) => {
   }
 };
 
+const showOriRec = async (req, res, next) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+};
+
+const showDestRec = async (req, res, next) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   showJourney,
   getJourney,
+  showOriRec,
+  showDestRec,
 };
