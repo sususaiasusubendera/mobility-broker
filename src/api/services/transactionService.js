@@ -1,6 +1,7 @@
 const QRcode = require("qrcode");
 const otpService = require("./otpService");
 const userModel = require("../models/userModel");
+const journeyModel = require("../models/journeyModel");
 const transactionModel = require("../models/transactionModel");
 const CustomError = require("../utils/customError");
 const datetimeUtil = require("../utils/datetimeUtil");
@@ -62,7 +63,6 @@ const createTripTransactionInfo = async (email, trip_id) => {
       return await transactionModel.getTransactionById(
         transaction.transaction_id
       );
-
     } else if (trip_id === "2") {
       const amount = 8000;
       if (user.balance < amount) {
@@ -95,7 +95,6 @@ const createTripTransactionInfo = async (email, trip_id) => {
       return await transactionModel.getTransactionById(
         transaction.transaction_id
       );
-
     } else {
       throw new CustomError("Trip not found", 404);
     }
@@ -148,6 +147,15 @@ const getTicketsTrueByEmail = async (email) => {
     const tickets = {
       tickets: await transactionModel.getTransactionsTrue(user.user_id),
     };
+
+    tickets.tickets = await Promise.all(tickets.tickets.map(async (ticket) => {
+      const journey = await journeyModel.getJourneyById(ticket.trip_id);
+      return {
+        ...ticket,
+        journey,
+      };
+    }));
+
     return tickets;
   } catch (error) {
     if (!(error instanceof CustomError)) {
@@ -169,6 +177,15 @@ const getTicketsFalseByEmail = async (email) => {
         user.user_id
       ),
     };
+
+    tickets.tickets_history = await Promise.all(tickets.tickets_history.map(async (ticket) => {
+      const journey = await journeyModel.getJourneyById(ticket.trip_id);
+      return {
+        ...ticket,
+        journey,
+      };
+    }));
+
     return tickets;
   } catch (error) {
     if (!(error instanceof CustomError)) {
