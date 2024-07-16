@@ -4,7 +4,7 @@ const { authenticateToken } = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.get("/", journeyController.showJourney);
+router.post("/", journeyController.showJourney);
 router.get("/journey", journeyController.getJourney);
 
 module.exports = router;

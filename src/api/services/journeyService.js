@@ -27,6 +27,23 @@ const showJourney = async (origin, destination) => {
   }
 };
 
+const getJourneyById = async (id) => {
+  try {
+    const journey = await journeyModel.getJourneyById(id);
+    if (!journey) {
+      throw new CustomError("Journey not found", 404);
+    }
+
+    return journey;
+  } catch (error) {
+    if (!(error instanceof CustomError)) {
+      error = new CustomError("Internal server error", 500);
+    }
+    throw error;
+  }
+};
+
 module.exports = {
   showJourney,
+  getJourneyById,
 };

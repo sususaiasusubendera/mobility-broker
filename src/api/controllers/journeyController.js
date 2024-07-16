@@ -6,12 +6,13 @@ const showJourney = async (req, res, next) => {
   const destination = req.body.destination;
   try {
     if (!origin || !destination) {
-      return next(new CustomError("Bad request", 400));
+      res.json({
+        journey: [],
+      });
     }
 
     const journey = await journeyService.showJourney(origin, destination);
     res.status(200).json(journey);
-    return;
   } catch (error) {
     next(error);
   }
@@ -20,6 +21,12 @@ const showJourney = async (req, res, next) => {
 const getJourney = async (req, res, next) => {
   const id = req.query.id;
   try {
+    if (!id) {
+      return next(new CustomError("Bad request", 400));
+    }
+
+    const journey = await journeyService.getJourneyById(id);
+    res.status(200).json(journey);
   } catch (error) {
     next(error);
   }

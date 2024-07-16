@@ -7,6 +7,13 @@ const getAllJourney = async () => {
   return result.rows;
 };
 
+const getJourneyById = async (id) => {
+  const query = "SELECT * FROM journey WHERE journey_id = $1";
+  const values = [id];
+  const result = await pool.query(query, values);
+  return result.rows[0];
+};
+
 // origin recommendation
 const getAllOriRec = async () => {
   const query = "SELECT * FROM origin_recommendation";
@@ -23,6 +30,7 @@ const getAllDestRec = async () => {
 
 module.exports = {
   getAllJourney,
+  getJourneyById,
   getAllOriRec,
   getAllDestRec,
 };

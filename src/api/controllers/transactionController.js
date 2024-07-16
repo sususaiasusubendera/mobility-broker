@@ -31,7 +31,6 @@ const createTripTransaction = async (req, res, next) => {
     const newTripTransaction =
       await transactionService.createTripTransactionInfo(email, trip_id);
     res.status(201).json(newTripTransaction);
-    res;
   } catch (error) {
     next(error);
   }
