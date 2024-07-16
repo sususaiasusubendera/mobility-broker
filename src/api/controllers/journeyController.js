@@ -17,6 +17,15 @@ const showJourney = async (req, res, next) => {
   }
 };
 
+const getJourney = async (req, res, next) => {
+  const id = req.query.id;
+  try {
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   showJourney,
+  getJourney,
 };
