@@ -4,7 +4,7 @@ const pool = require("../configs/databaseConfig");
 const getAllJourney = async () => {
   const query = "SELECT * FROM journey";
   const result = await pool.query(query);
-  return result.rows[0];
+  return result.rows;
 };
 
 // origin recommendation
