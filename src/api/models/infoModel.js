@@ -15,7 +15,15 @@ const getAllRouteInfoByProgram = async (program) => {
   return result.rows;
 };
 
+// transit_map
+const getAllMap = async () => {
+  const query = "SELECT * FROM transit_map";
+  const result = await pool.query(query);
+  return result.rows[0];
+};
+
 module.exports = {
   getAllRouteInfoByProgram,
   getAllServiceInfo,
+  getAllMap,
 };

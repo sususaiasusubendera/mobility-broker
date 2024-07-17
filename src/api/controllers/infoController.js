@@ -26,6 +26,8 @@ const getRouteInfoByProgram = async (req, res, next) => {
 
 const getMap = async (req, res, next) => {
   try {
+    const map = await infoService.getMap();
+    res.status(200).json(map);
   } catch (error) {
     next(error);
   }

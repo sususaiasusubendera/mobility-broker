@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get("/service", infoController.getServiceInfo);
 router.get("/route", infoController.getRouteInfoByProgram);
-router.get("/map", infoController.getMap);
+router.get("/transitmap", infoController.getMap);
 
 module.exports = router;

@@ -66,7 +66,24 @@ const getRouteInfoByProgram = async (program) => {
   }
 };
 
+const getMap = async () => {
+  try {
+    const data = await infoModel.getAllMap();
+    if (!data) {
+      throw new CustomError("No map found", 400);
+    }
+
+    return data;
+  } catch (error) {
+    if (!(error instanceof CustomError)) {
+      error = new CustomError("Internal server error", 500);
+    }
+    throw error;
+  }
+};
+
 module.exports = {
   getAllServiceInfo,
   getRouteInfoByProgram,
+  getMap,
 };
