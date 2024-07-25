@@ -4,8 +4,8 @@ const { authenticateToken } = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.get("/service", infoController.getServiceInfo);
-router.get("/route", infoController.getRouteInfoByProgram);
-router.get("/transitmap", infoController.getMap);
+router.get("/service", authenticateToken, infoController.getServiceInfo);
+router.get("/route", authenticateToken, infoController.getRouteInfoByProgram);
+router.get("/transitmap", authenticateToken, infoController.getMap);
 
 module.exports = router;

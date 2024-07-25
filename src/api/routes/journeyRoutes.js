@@ -4,9 +4,9 @@ const { authenticateToken } = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.post("/", journeyController.showJourney);
-router.get("/journey", journeyController.getJourney);
-router.get("/recommendation/origin", journeyController.showOriRec);
-router.get("/recommendation/destination", journeyController.showDestRec);
+router.post("/", authenticateToken, journeyController.showJourney);
+router.get("/journey", authenticateToken, journeyController.getJourney);
+router.get("/recommendation/origin", authenticateToken, journeyController.showOriRec);
+router.get("/recommendation/destination", authenticateToken, journeyController.showDestRec);
 
 module.exports = router;
