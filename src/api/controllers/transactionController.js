@@ -1,6 +1,7 @@
 const transactionService = require("../services/transactionService");
 const CustomError = require("../utils/customError");
 
+// OTP
 const getTripSummary = async (req, res, next) => {
   const { startLat, startLon, endLat, endLon, time, date } = req.body;
   try {

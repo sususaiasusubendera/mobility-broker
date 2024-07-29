@@ -32,7 +32,7 @@ const createTripTransactionInfo = async (email, trip_id) => {
     }
 
     if (trip_id === "1") {
-      const amount = 12000;
+      const amount = await journeyModel.getFareById(trip_id).total_fare;
       if (user.balance < amount) {
         throw new CustomError("Not enough balance", 400);
       }
@@ -64,7 +64,7 @@ const createTripTransactionInfo = async (email, trip_id) => {
         transaction.transaction_id
       );
     } else if (trip_id === "2") {
-      const amount = 8000;
+      const amount = await journeyModel.getFareById(trip_id).total_fare;
       if (user.balance < amount) {
         throw new CustomError("Not enough balance", 400);
       }
