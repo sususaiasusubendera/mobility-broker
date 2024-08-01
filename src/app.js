@@ -27,8 +27,8 @@ app.get("/", (req, res, next) => {
   res.send("Welcome! You are using Bandung Transit API");
 });
 
-app.get("/api/health", (req, res, next) => {
-  res.status(200).json({ status: "OK" });
+app.get("/api/health", (req, res, next) => { // healthCheck target (cloud function)
+  res.status(200).json({ status: "OK" }); 
 });
 
 // routes

@@ -32,7 +32,7 @@ const createUser = async (userData) => {
   }
 };
 
-// LOGIN (need to be test)
+// LOGIN
 const loginUser = async (email, password) => {
   try {
     const user = await userModel.getUserByEmail(email);
@@ -55,6 +55,7 @@ const loginUser = async (email, password) => {
   }
 };
 
+// GET USER DATA BY EMAIL
 const getUserDataByEmail = async (email) => {
   try {
     const userData = await userModel.getUserByEmail(email);

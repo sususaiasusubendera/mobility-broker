@@ -6,6 +6,7 @@ const transactionModel = require("../models/transactionModel");
 const CustomError = require("../utils/customError");
 const datetimeUtil = require("../utils/datetimeUtil");
 
+// OTP related (not used)
 const planTrip = async (fromPlace, toPlace, time, date) => {
   try {
     const tripSummaryData = await otpService.planTrip(
@@ -24,6 +25,7 @@ const planTrip = async (fromPlace, toPlace, time, date) => {
   }
 };
 
+// CREATE TRIP TRANSACTION
 const createTripTransactionInfo = async (email, trip_id) => {
   try {
     const user = await userModel.getUserByEmail(email);
@@ -106,6 +108,7 @@ const createTripTransactionInfo = async (email, trip_id) => {
   }
 };
 
+// CHANGE TICKET STATUS
 const changeTicketStatus = async (email, transaction_id) => {
   try {
     const user = await userModel.getUserByEmail(email);
@@ -137,6 +140,7 @@ const changeTicketStatus = async (email, transaction_id) => {
   }
 };
 
+// GET USER's ACTIVE TICKET
 const getTicketsTrueByEmail = async (email) => {
   try {
     const user = await userModel.getUserByEmail(email);
@@ -165,6 +169,7 @@ const getTicketsTrueByEmail = async (email) => {
   }
 };
 
+// GET USER'S TICKET HISTORY 
 const getTicketsFalseByEmail = async (email) => {
   try {
     const user = await userModel.getUserByEmail(email);

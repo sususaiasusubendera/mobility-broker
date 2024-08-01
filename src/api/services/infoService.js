@@ -1,6 +1,8 @@
 const infoModel = require("../models/infoModel");
 const CustomError = require("../utils/customError");
 
+// frontend's needs
+// GET ALL SERVICE INFO
 const getAllServiceInfo = async () => {
   try {
     const infoData = await infoModel.getAllServiceInfo();
@@ -19,6 +21,7 @@ const getAllServiceInfo = async () => {
   }
 };
 
+// GET PROGRAM'S ROUTE INFORMATION
 const getRouteInfoByProgram = async (program) => {
   try {
     // const infoData = await infoModel.getAllRouteInfo(program);
@@ -66,6 +69,7 @@ const getRouteInfoByProgram = async (program) => {
   }
 };
 
+// GET TRANSIT MAP
 const getMap = async () => {
   try {
     const data = await infoModel.getAllMap();

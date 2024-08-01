@@ -1,7 +1,7 @@
 const axios = require("axios");
 const CustomError = require("../utils/customError");
 
-// PLAN TRIP
+// PLAN TRIP (not used)
 // fromPlace: "latitude,longitude"
 // toPlace: "latitude,longitude"
 const planTrip = async (fromPlace, toPlace, time, date) => {

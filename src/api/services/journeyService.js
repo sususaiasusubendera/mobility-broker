@@ -1,6 +1,8 @@
 const journeyModel = require("../models/journeyModel");
 const CustomError = require("../utils/customError");
 
+// frontend's needs
+// SHOW ALL JOURNEYS
 const showJourney = async (origin, destination) => {
   try {
     if (
@@ -27,6 +29,7 @@ const showJourney = async (origin, destination) => {
   }
 };
 
+// GET JOURNEY BY ID
 const getJourneyById = async (id) => {
   try {
     const journey = await journeyModel.getJourneyById(id);
@@ -43,6 +46,7 @@ const getJourneyById = async (id) => {
   }
 };
 
+// GET ALL ORIGIN RECOMMENDATIONS
 const getAllOriRec = async () => {
   try {
     const recData = await journeyModel.getAllOriRec();
@@ -61,6 +65,7 @@ const getAllOriRec = async () => {
   }
 };
 
+// GET ALL DESTINATION RECOMMENDATIONS
 const getAllDestRec = async () => {
   try {
     const recData = await journeyModel.getAllDestRec();
