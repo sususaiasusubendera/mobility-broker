@@ -1,5 +1,6 @@
 const pool = require("../configs/databaseConfig");
 
+// create transaction
 const createTransaction = async (data) => {
   const { user_id, trip_id, amount, transaction_date } = data; // no qr_link
   const query =
@@ -9,6 +10,7 @@ const createTransaction = async (data) => {
   return result.rows[0];
 };
 
+// get transaction byy id
 const getTransactionById = async (id) => {
   const query = "SELECT * FROM transactions WHERE transaction_id = $1";
   const values = [id];
@@ -16,6 +18,7 @@ const getTransactionById = async (id) => {
   return result.rows[0];
 };
 
+// change active ticket status
 const updateIsActiveToFalse = async (transaction_id, user_id) => {
   const query =
     "UPDATE transactions SET is_active = false WHERE transaction_id = $1 AND user_id = $2 RETURNING *";
@@ -24,6 +27,7 @@ const updateIsActiveToFalse = async (transaction_id, user_id) => {
   return result.rows[0];
 };
 
+// get active ticket
 const getTransactionsTrue = async (user_id) => {
   const query =
     "SELECT * FROM transactions WHERE user_id = $1 AND is_active = true ORDER BY transaction_date DESC";
@@ -32,6 +36,7 @@ const getTransactionsTrue = async (user_id) => {
   return result.rows;
 };
 
+// get ticket history
 const getTransactionsFalse = async (user_id) => {
   const query =
     "SELECT * FROM transactions WHERE user_id = $1 AND is_active = false ORDER BY transaction_date DESC";
@@ -40,6 +45,7 @@ const getTransactionsFalse = async (user_id) => {
   return result.rows;
 };
 
+// add information QR
 const updateQR = async (qr_link, transaction_id) => {
   const query =
     "UPDATE transactions SET qr_link = $1 WHERE transaction_id = $2";

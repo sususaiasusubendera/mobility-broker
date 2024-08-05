@@ -1,5 +1,6 @@
 const pool = require("../configs/databaseConfig");
 
+// create user
 const createUser = async (userData) => {
   const { name, email, password, createdDate, balance } = userData;
   const query =
@@ -9,6 +10,7 @@ const createUser = async (userData) => {
   return result.rows[0];
 };
 
+// get user
 const getUserById = async (id) => {
   const query = "SELECT * FROM users WHERE id = $1";
   const values = [id];
@@ -30,6 +32,7 @@ const getUserByEmail = async (email) => {
   return result.rows[0];
 };
 
+// update balance
 const updateUserBalance = async (newBalance, email) => {
   const query = "UPDATE users SET balance = $1 WHERE email = $2 RETURNING *";
   const values = [newBalance, email];
