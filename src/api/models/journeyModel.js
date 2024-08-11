@@ -19,7 +19,7 @@ const getFareById = async (id) => {
   const query = "SELECT total_fare FROM journey WHERE journey_id = $1";
   const values = [id];
   const result = await pool.query(query, values);
-  return result.rows;
+  return result.rows[0];
 }
 
 // origin recommendation

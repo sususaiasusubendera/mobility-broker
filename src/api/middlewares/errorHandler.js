@@ -8,7 +8,8 @@ const errorHandler = (err, req, res, next) => {
     console.error(err.stack);
   }
 
-  // console.error(err.stack)
+  console.error(err.stack);
+  console.error
 
   if (details.length) {
     console.error("Details:", details);
